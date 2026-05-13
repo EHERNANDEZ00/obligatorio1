@@ -44,19 +44,21 @@ function agregar_equipo() {
     else
         echo "se ha alcanzado el límite de equipos"
     fi
+    read -p "presione enter para continuar"
 }
 
 function listar_equipos() {
     if [ ${#equipos[@]} -gt 0 ]
     then
         echo "equipos registrados:"
-        for equipo in "${!equipos[*]}"
+        for equipo in "${!equipos[@]}"
         do
             echo "$equipo"
         done
     else
         echo "no hay equipos registrados"
     fi
+    read -p "presione enter para continuar"
 }
 
 function buscar_equipo() {
@@ -74,6 +76,7 @@ function buscar_equipo() {
     else
         echo "el equipo $nombre_equipo no está registrado"
     fi
+    read -p "presione enter para continuar"
 }
 
 
@@ -117,7 +120,7 @@ function registrar_partido (){
                 partidos+=("$equipo1 $goles1 - $goles2 $equipo2")
         fi
     fi
-
+    read -p "presione enter para continuar"
 }
 
 function ver_historial_de_partidos() {
@@ -131,13 +134,57 @@ function ver_historial_de_partidos() {
     else
         echo "no se han registrado partidos"
     fi
+    read -p "presione enter para continuar"
+
 }
 
-agregar_equipo
-agregar_equipo
-listar_equipos
-buscar_equipo
-registrar_partido
-ver_historial_de_partidos
+function mostrar_partidos_jugados() {
+    echo "cantidad de partidos jugados: $partidos_jugados"
+    read -p "presione enter para continuar"
+}
 
-
+function mostrar_campeon() {
+    if [ ${#equipos[@]} -gt 0 ]
+    then
+        local campeon=""
+        local max_puntos=-1
+        for equipo in "${!equipos[@]}"
+        do
+            if [ ${equipos[$equipo]} -gt $max_puntos ]
+            then
+                max_puntos=${equipos[$equipo]}
+                campeon=$equipo
+            fi
+        done
+        echo "el campeón es: $campeon con $max_puntos puntos"
+    else
+        echo "no hay equipos registrados"
+    fi
+    read -p "presione enter para continuar"
+}
+en_programa=true
+while [ $en_programa == true ] 
+do
+    clear
+    echo "1. Agregar equipo"
+    echo "2. Listar equipos"
+    echo "3. Registrar partido"
+    echo "4. Buscar equipo"
+    echo "5. Ver historial de partidos"
+    echo "6. Mostrar cantidad de partidos jugados"
+    echo "7. Mostrar campeón"
+    echo "8. Salir"
+    echo "ingrese una opción"
+    read opcion
+    case $opcion in
+        1) clear && agregar_equipo;;
+        2) clear && listar_equipos;;
+        3) clear && registrar_partido;;
+        4) clear && buscar_equipo;;
+        5) clear && ver_historial_de_partidos;;
+        6) clear && mostrar_partidos_jugados;;
+        7) clear && mostrar_campeon;;
+        8) en_programa=false;;
+        *) clear && echo "opción inválida" ;;
+    esac
+done
