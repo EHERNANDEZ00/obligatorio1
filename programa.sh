@@ -95,6 +95,7 @@ function registrar_partido (){
             else
                 while [ $goles1 -le 0 ] || [ $goles2 -le 0 ]
                 do
+                clear
                 echo "ingrese la cantidad de goles anotados por $equipo1"
                 read goles1
                 echo "ingrese la cantidad de goles anotados por $equipo2"
@@ -188,6 +189,6 @@ do
         6) clear && mostrar_partidos_jugados;;
         7) clear && mostrar_campeon;;
         8) en_programa=false;;
-        *) clear && echo "opción inválida" ;;
+        *) clear && read -p "opción inválida presione enter para continuar" ;;
     esac
 done
