@@ -1,11 +1,8 @@
 #!/bin/bash
-#declaramos  un diccionario  para almacenar los equipos y los partidos ganados
 declare -A equipos
 
-#declaramos una variable con la cantidad de partidos jugados
 partidos_jugados=0
 
-#declaramos un array con partidos jugados
 partidos=()
 
 function equipo_existe() {
@@ -22,7 +19,6 @@ function equipo_existe() {
     return $a_retornar
 }
 
-#creamos la funcion a para agregar equipos
 function agregar_equipo() {
     if [ ${#equipos[@]} -le 15 ]
     then
@@ -85,25 +81,32 @@ function registrar_partido (){
     local equipo2=""
     local goles1=0
     local goles2=0
-    echo "ingrese el nombre del equipo a jugar"
+    echo "ingrese el nombre del equipo 1"
     read equipo1
     if ! equipo_existe "$equipo1" 
         then
             echo "el equipo no existe"
         else
-        echo "ingrese el nombre del equipo2"
+        echo "ingrese el nombre del equipo 2"
         read equipo2
         if ! equipo_existe "$equipo2"
             then
                 echo "el equipo no existe"
             else
+                while [ $goles1 -le 0 ] || [ $goles2 -le 0 ]
+                do
                 echo "ingrese la cantidad de goles anotados por $equipo1"
                 read goles1
                 echo "ingrese la cantidad de goles anotados por $equipo2"
                 read goles2
+                if [ $goles1 -le 0 ] || [ $goles2 -le 0 ]
+                then 
+                    echo "la cantidad de goles debe ser mayor a 0"
+                fi
+                done
                 if [ $goles1 -gt $goles2 ];
                 then
-                #sumar 3 puntos al equipo ganador
+               
                     echo   "$equipo1 gano"
                     ((equipos[$equipo1]+=3))
                 elif [ $goles1 -lt $goles2 ];
@@ -112,7 +115,7 @@ function registrar_partido (){
                     ((equipos[$equipo2]+=3))
                 elif [ $goles1 -eq $goles2 ];
                     then
-                        echo   "empate"
+                        echo   " hubo empate"
                         ((equipos[$equipo1]+=1))
                         ((equipos[$equipo2]+=1))
                 fi
@@ -188,4 +191,3 @@ do
         *) clear && echo "opción inválida" ;;
     esac
 done
-hola
