@@ -20,7 +20,7 @@ function equipo_existe() {
 }
 
 function agregar_equipo() {
-    if [ ${#equipos[@]} -le 15 ]
+    if [ ${#equipos[@]} -lt 15 ]
     then
         local nombre_equipo=""
         echo "ingrese el nombre del equipo"
@@ -160,9 +160,9 @@ function mostrar_campeon() {
                 campeon=$equipo
             fi
         done
-        echo "el campeón es: $campeon con $max_puntos puntos"
+        echo -e "el campeon del utimo torneo fue argentina,\nel campeón actual es: $campeon con $max_puntos puntos"
     else
-        echo "no hay equipos registrados"
+        echo -e "el campeon del utimo torneo fue argentina,\nno hay equipos registrados para determinar el campeón actual"
     fi
     read -p "presione enter para continuar"
 }
