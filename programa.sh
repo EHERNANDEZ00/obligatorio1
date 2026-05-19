@@ -79,8 +79,8 @@ function buscar_equipo() {
 function registrar_partido (){
     local equipo1=""
     local equipo2=""
-    local goles1=0
-    local goles2=0
+    local goles1=-1
+    local goles2=-1
     echo "ingrese el nombre del equipo 1"
     read equipo1
     if ! equipo_existe "$equipo1" 
@@ -93,14 +93,14 @@ function registrar_partido (){
             then
                 echo "el equipo no existe"
             else
-                while [ $goles1 -le 0 ] || [ $goles2 -le 0 ]
+                while [ $goles1 -lt 0 ] || [ $goles2 -lt 0 ]
                 do
                 clear
                 echo "ingrese la cantidad de goles anotados por $equipo1"
                 read goles1
                 echo "ingrese la cantidad de goles anotados por $equipo2"
                 read goles2
-                if [ $goles1 -le 0 ] || [ $goles2 -le 0 ]
+                if [ $goles1 -lt 0 ] || [ $goles2 -lt 0 ]
                 then 
                     echo "la cantidad de goles debe ser mayor a 0"
                 fi
