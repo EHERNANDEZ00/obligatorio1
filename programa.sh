@@ -103,6 +103,7 @@ function registrar_partido (){
                 if [ $goles1 -lt 0 ] || [ $goles2 -lt 0 ]
                 then 
                     echo "la cantidad de goles debe ser mayor a 0"
+                    read -p "presione enter para continuar"
                 fi
                 done
                 if [ $goles1 -gt $goles2 ];
