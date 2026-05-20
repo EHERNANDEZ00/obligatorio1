@@ -98,8 +98,22 @@ function registrar_partido (){
                 clear
                 echo "ingrese la cantidad de goles anotados por $equipo1"
                 read goles1
+                if [[ ! $goles1 =~ ^[0-9]+$ ]]
+                then 
+                    while [[ ! $goles1 =~ ^[0-9]+$ ]]
+                    do
+                        read -p "ingrese la cantidad de goles anotados por $equipo1, debe ser un número entero mayor o igual a 0: " goles1
+                    done
+                fi
                 echo "ingrese la cantidad de goles anotados por $equipo2"
                 read goles2
+                if [[ ! $goles2 =~ ^[0-9]+$ ]]
+                then 
+                    while [[ ! $goles2 =~ ^[0-9]+$ ]]
+                    do
+                        read -p "ingrese la cantidad de goles anotados por $equipo2, debe ser un número entero mayor o igual a 0: " goles2
+                    done
+                fi
                 if [ $goles1 -lt 0 ] || [ $goles2 -lt 0 ]
                 then 
                     echo "la cantidad de goles debe ser mayor a 0"
