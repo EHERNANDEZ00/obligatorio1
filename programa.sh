@@ -1,4 +1,5 @@
 #!/bin/bash
+# por Luciano Liori (379030) y Eduardo Hernandez (370255)
 declare -A equipos
 
 partidos_jugados=0
