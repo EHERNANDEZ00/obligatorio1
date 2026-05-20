@@ -89,6 +89,15 @@ function registrar_partido (){
         else
         echo "ingrese el nombre del equipo 2"
         read equipo2
+        if [ "$equipo1" == "$equipo2" ]
+        then
+            echo "no se puede registrar un partido entre el mismo equipo"
+            while [ "$equipo1" == "$equipo2" ]
+            do
+                echo "ingrese el nombre del equipo 2, no puede ser el mismo que el equipo 1"
+                read equipo2
+            done
+        fi
         if ! equipo_existe "$equipo2"
             then
                 echo "el equipo no existe"
@@ -167,16 +176,24 @@ function mostrar_campeon() {
     then
         local campeon=""
         local max_puntos=-1
+        local segundo_max_puntos=-1
         for equipo in "${!equipos[@]}"
         do
-            if [ ${equipos[$equipo]} -gt $max_puntos ]
+            if [ ${equipos[$equipo]} -ge $max_puntos ]
             then
+                segundo_max_puntos=$max_puntos
                 max_puntos=${equipos[$equipo]}
                 campeon=$equipo
             fi
         done
-        echo -e "el campeon del utimo torneo fue argentina,\nel campeón actual es: $campeon con $max_puntos puntos"
+        if [ $segundo_max_puntos -eq $max_puntos ]
+        then
+            echo "Hay un empate entre equipos, no hay campeón actual"
+        else
+            echo -e "el campeon del utimo torneo fue argentina,\nel campeón actual es: $campeon con $max_puntos puntos"
+        fi
     else
+
         echo -e "el campeon del utimo torneo fue argentina,\nno hay equipos registrados para determinar el campeón actual"
     fi
     read -p "presione enter para continuar"
